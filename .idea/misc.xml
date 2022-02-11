@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/itsrdb/Documents/LeetCodeChallenger/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/itsrdb/Documents/LeetCodeChallenger/app/src/main/res/drawable/ic_baseline_leaderboard.xml" value="0.1" />
+        <entry key="..\:/Users/itsrdb/Documents/LeetCodeChallenger/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/itsrdb/Documents/LeetCodeChallenger/app/src/main/res/layout/activity_user_login.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/itsrdb/Documents/LeetCodeChallenger/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

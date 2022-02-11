@@ -3,23 +3,31 @@ package com.itsrdb.lcchallenger
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.itsrdb.lcchallenger.databinding.ActivityMainBinding
+import com.itsrdb.lcchallenger.databinding.ActivityUserLoginBinding
 
 
 class UserLogin : AppCompatActivity() {
+
+    private lateinit var binding: ActivityUserLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_login)
+        binding = ActivityUserLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        //change title bar color kotlin
-//        val aBar: ActionBar? = supportActionBar
-//        val cd = ColorDrawable(Color.parseColor("#ffffff"))
-//        aBar!!.setBackgroundDrawable(cd)
+        val ContinueBtn = binding.btnContinue
+        ContinueBtn.setOnClickListener {
+            addUsernameToDB(binding.tvUsername.text.toString())
+        }
+    }
 
-//        val window: Window = this.window
-//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-//        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+    private fun addUsernameToDB(username : String) {
+        Log.d("username", username)
+        val dbHelper = SqliteOpenHelper(this, null)
+        dbHelper.addUsername(username)
     }
 }
