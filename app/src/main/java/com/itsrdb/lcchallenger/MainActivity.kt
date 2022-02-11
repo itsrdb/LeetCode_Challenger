@@ -4,6 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.itsrdb.lcchallenger.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,6 +21,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val bottomNav = binding.bottomNav
+        val navController = findNavController(R.id.fragment)
+        val appBar = AppBarConfiguration(setOf(R.id.firstFragment, R.id.secondFragment, R.id.thirdFragment))
+        setupActionBarWithNavController(navController, appBar)
+        bottomNav.setupWithNavController(navController)
 
         val dbHelper = SqliteOpenHelper(this, null)
         if(!dbHelper.checkDb()){
