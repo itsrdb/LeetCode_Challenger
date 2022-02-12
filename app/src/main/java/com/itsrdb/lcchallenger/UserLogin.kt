@@ -22,7 +22,9 @@ class UserLogin : AppCompatActivity() {
         val ContinueBtn = binding.btnContinue
         ContinueBtn.setOnClickListener {
             addUsernameToDB(binding.tvUsername.text.toString())
+            finish()
         }
+
     }
 
     private fun addUsernameToDB(username : String) {
