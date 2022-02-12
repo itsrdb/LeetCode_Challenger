@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -23,10 +24,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bottomNav = binding.bottomNav
-        val navController = findNavController(R.id.fragment)
-        val appBar = AppBarConfiguration(setOf(R.id.firstFragment, R.id.secondFragment, R.id.thirdFragment))
-        setupActionBarWithNavController(navController, appBar)
-        bottomNav.setupWithNavController(navController)
+//        val navController = findNavController(R.id.fragment)
+//        val appBar = AppBarConfiguration(setOf(R.id.firstFragment, R.id.secondFragment, R.id.thirdFragment))
+//        setupActionBarWithNavController(navController, appBar)
+//        bottomNav.setupWithNavController(navController)
+
+        val firstFrag = FirstFragment()
+        val secondFrag = SecondFragment()
+        val thirdFrag = ThirdFragment()
+
+        setCurrentFragment(secondFrag)
+        //this will change
+        bottomNav.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.firstFragment->setCurrentFragment(firstFrag)
+                R.id.secondFragment->setCurrentFragment(secondFrag)
+                R.id.thirdFragment->setCurrentFragment(thirdFrag)
+
+            }
+            true
+        }
 
         val dbHelper = SqliteOpenHelper(this, null)
         if(!dbHelper.checkDb()){
@@ -39,6 +56,12 @@ class MainActivity : AppCompatActivity() {
         getSubmissions()
         getRecentSubmissions()
     }
+
+    private fun setCurrentFragment(fragment: Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment,fragment)
+            commit()
+        }
 
     private fun getSubmissions() {
         val subs = APIService.apiInstance.getSubmissions("itsrdb")
