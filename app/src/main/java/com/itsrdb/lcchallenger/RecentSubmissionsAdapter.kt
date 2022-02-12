@@ -2,12 +2,10 @@ package com.itsrdb.lcchallenger
 
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class RecentSubmissionsAdapter(val context: Context, val recentArray: ArrayList<RecentSubmissions>)
@@ -26,7 +24,7 @@ class RecentSubmissionsAdapter(val context: Context, val recentArray: ArrayList<
     }
 
     override fun onBindViewHolder(holder: SubmissionsViewHolder, position: Int) {
-        //Data bind
+        //Data binding
         val subArray = recentArray[position]
         holder.qName.text = subArray.title
         holder.qVerdict.text = "WA"
@@ -37,17 +35,15 @@ class RecentSubmissionsAdapter(val context: Context, val recentArray: ArrayList<
         }else if(subArray.statusDisplay == "Time Limit Exceeded"){
             holder.qVerdict.text = "TLE"
         }else{
-            //Log.d("recent", holder.qVerdict.text)
             holder.qVerdict.text = "WA"
         }
     }
 
     override fun getItemCount(): Int {
-        if(recentArray.size > limit){
-            return limit;
-        }else{
-            return recentArray.size;
-        }
+        if(recentArray.size > limit)
+            return limit
+
+        return recentArray.size
     }
 
 }

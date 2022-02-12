@@ -1,15 +1,10 @@
 package com.itsrdb.lcchallenger
 
 import android.animation.ValueAnimator
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,12 +19,9 @@ import com.itsrdb.lcchallenger.databinding.FragmentSecondBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.security.AccessController.getContext
 
 
 class SecondFragment:Fragment(R.layout.fragment_second){
-
-    //private lateinit var context: Context
 
     private lateinit var binding: FragmentSecondBinding
     private lateinit var pieChart: PieChart
@@ -57,16 +49,12 @@ class SecondFragment:Fragment(R.layout.fragment_second){
                 call: Call<OuterRecentSubmissions>,
                 response: Response<OuterRecentSubmissions>)
             {
-                val subs = response.body()
+                val subsDebug = response.body()
                 val rv = binding.rvSubmissions
 
-                //subs!!.data
-                adapter = RecentSubmissionsAdapter(context!!, subs!!.data)
+                adapter = RecentSubmissionsAdapter(context!!, subsDebug!!.data)
                 rv.adapter = adapter
                 rv.layoutManager = LinearLayoutManager(context!!)
-//                if(subs!=null){
-//                    Log.d("Success", subs.toString())
-//                }
 
             }
         })
@@ -84,15 +72,15 @@ class SecondFragment:Fragment(R.layout.fragment_second){
                 response: Response<OuterSubmissions>
             )
             {
-                val subs = response.body()
-                if(subs!=null){
-                    val subArray : ArrayList<InsideSubmission> = subs.data!!.acSubmissionNum
+                val responseSubs = response.body()
+                if(responseSubs!=null){
+                    val subArray : ArrayList<InsideSubmission> = responseSubs.data!!.acSubmissionNum
                     val easy = subArray[1].count
                     val medium = subArray[2].count
                     val hard = subArray[3].count
-                    Log.d("1", easy.toString())
-                    Log.d("2", medium.toString())
-                    Log.d("3", hard.toString())
+//                    Log.d("1", easy.toString())
+//                    Log.d("2", medium.toString())
+//                    Log.d("3", hard.toString())
                     animateTextView(0, subArray[1].count!!, binding.tvEasy)
                     animateTextView(0, subArray[2].count!!, binding.tvMedium)
                     animateTextView(0, subArray[3].count!!, binding.tvHard)
@@ -127,7 +115,7 @@ class SecondFragment:Fragment(R.layout.fragment_second){
         data.setValueFormatter(vf)
 
         // In Percentage
-        //data.setValueFormatter(PercentFormatter())
+        // data.setValueFormatter(PercentFormatter())
         dataSet.sliceSpace = 3f
         dataSet.colors = colors
         pieChart.data = data
@@ -143,7 +131,7 @@ class SecondFragment:Fragment(R.layout.fragment_second){
 
 
         //add text in center
-        pieChart.setDrawCenterText(true);
+        pieChart.setDrawCenterText(true)
         pieChart.centerText = "Successful Submissions"
 
         pieChart.invalidate()
@@ -167,12 +155,12 @@ class SecondFragment:Fragment(R.layout.fragment_second){
     }
 
     private fun animateTextView(initialValue: Int, finalValue: Int, textview: TextView) {
-        val valueAnimator = ValueAnimator.ofInt(initialValue, finalValue)
-        valueAnimator.duration = 750
-        valueAnimator.addUpdateListener { valueAnimator ->
-            textview.text = valueAnimator.animatedValue.toString()
+        val va = ValueAnimator.ofInt(initialValue, finalValue)
+        va.duration = 750
+        va.addUpdateListener { va ->
+            textview.text = va.animatedValue.toString()
         }
-        valueAnimator.start()
+        va.start()
     }
 
 }
