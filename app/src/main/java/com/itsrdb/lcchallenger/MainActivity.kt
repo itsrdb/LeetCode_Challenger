@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.firstFragment->setCurrentFragment(firstFrag)
                 R.id.secondFragment->setCurrentFragment(secondFrag)
                 R.id.thirdFragment->setCurrentFragment(thirdFrag)
-
             }
             true
         }
@@ -53,8 +52,8 @@ class MainActivity : AppCompatActivity() {
             val user : String = dbHelper.getUser()
         }
 
-        getSubmissions()
-        getRecentSubmissions()
+        //getSubmissions()
+        //getRecentSubmissions()
     }
 
     private fun setCurrentFragment(fragment: Fragment)=
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
-    private fun getSubmissions() {
+    fun getSubmissions() {
         val subs = APIService.apiInstance.getSubmissions("itsrdb")
         subs.enqueue(object : Callback<OuterSubmissions>{
             override fun onFailure(call: Call<OuterSubmissions>, t: Throwable) {
